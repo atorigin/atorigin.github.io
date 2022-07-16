@@ -1,5 +1,6 @@
 # hidden files
 .*
+!.devcontainer
 !.git*
 !.editorconfig
 !.nojekyll
