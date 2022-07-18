@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 002_利用 terraform 管理 cloudflare dns
+title: 002_利用 terraform 管理 cloudflare DNS Record
 date: '2022-07-18 15:46:31 +0800'
 categories: [DevOps]
 tags: [terraform,cloudflare]     # TAG names should always be lowercase
@@ -16,13 +16,13 @@ math: true
 ## 設定 cloudflare 的 provider 說明
 https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs
 
-# module 使用說明
+# 配置使用說明
 - terraform 要 >= 1.2.0, < 1.3.0
 - cloudflare provider 要 >= 3.18.0
 
 ## tf 檔案配置
 
-### provider
+### provider.tf
 ```hcl
 terraform {
   required_providers {
@@ -38,7 +38,7 @@ provider "cloudflare" {
 }
 ```
 
-### variables
+### variables.tf
 ```hcl
 variable "cloudflare_api_token" {
   type        = string
@@ -50,7 +50,7 @@ variable "cloudflare_zone_id" {
 }
 ```
 
-### main
+### main.tf
 ```hcl
 resource "cloudflare_record" "blog" {
   zone_id = var.cloudflare_zone_id
@@ -93,3 +93,6 @@ terraform apply
 ![](/commons/image/20220718/03_terraform_command_1.png)
 ![](/commons/image/20220718/03_terraform_command_2.png)
 ![](/commons/image/20220718/03_terraform_command_3.png)
+
+## 驗證結果
+![](/commons/image/20220718/03_terraform_command_4.png)
