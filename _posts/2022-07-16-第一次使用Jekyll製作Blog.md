@@ -23,7 +23,7 @@ math: true
 
 ## 關於 icon 的套件
 這個 chirpy 主題會引入 submodule [fontawesome-free](https://github.com/cotes2020/chirpy-static-assets/tree/d1d2ec17c88176753d4dd2a1296620021dcc22fd)，路徑會在 assets/lib。
-> 每當 build 的時候，這些 css 和 js 檔就會應用在生成 blog site 的網站座做使用
+> 每當 build 的時候，這些 css 和 js 檔就會應用在生成 blog site 的網站做使用
 
 ### 感想
 基本上在使用 Jekyll 做為自己的 blog 建置的時候，樣式規則都遵循一套原則，可以參考 Jekyll 套件。
