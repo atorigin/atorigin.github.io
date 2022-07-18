@@ -1,6 +1,6 @@
 ---
 title: 001_我製作的第一篇基於 Jekyll Chripy 主題的文章
-author: atoring
+author: owen
 date: 2022-07-16 20:48:00 +0800
 categories: [Blog]
 tags: [github-pages]     # TAG names should always be lowercase
@@ -54,3 +54,9 @@ bundle
 bundle exec jekyll post '我的POST' --timestamp-format "%Y-%m-%d %H:%M:%S %z"
 ```
 4. 查看 `_posts` 目錄下面會多一個 `.md` 就是剛剛生成的新的 post 文件檔，他會幫忙自動生成上面的 `Front Matter` 字段
+
+## 補充 - 關於文件 md 的 code block 支援的 language 清單
+<https://github.com/rouge-ruby/rouge/blob/master/docs/Languages.md>
+
+### 相關 issue 討論
+<https://github.com/cotes2020/jekyll-theme-chirpy/issues/623>
