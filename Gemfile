@@ -20,3 +20,7 @@ gem "wdm", "~> 0.1.1", :install_if => Gem.win_platform?
 
 # Jekyll <= 4.2.0 compatibility with Ruby 3.0
 gem "webrick", "~> 1.7"
+
+
+# 安裝 jekyll-compose 工具，節省撰寫文件的準備時間
+gem 'jekyll-compose', group: [:jekyll_plugins]
