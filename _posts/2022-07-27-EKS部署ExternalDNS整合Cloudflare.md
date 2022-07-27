@@ -22,7 +22,7 @@ math: true
 {: .prompt-tip }
 
 # 關於 External DNS 工具
-簡單來說就是透過部署 kubernetes 的 service 或 ingress 資源時，同時在 Cloudflare 上面創建 DNS Record 來讓 DNS 能指向 EKS 的位置。
+簡單來說就是透過部署 kubernetes 的 service 或 ingress 資源時，同時在 DNS Provider (此篇是採用 Cloudflare) 上面創建 DNS Record 來讓 DNS 能指向 EKS 的位置。
 
 External DNS 透過 DNS 的 txt type 來辨識它所管理的 records。(這點會在部署之後，創建 record 的同時也會建立一筆 txt type 的 record)
 
