@@ -37,10 +37,10 @@ External DNS 透過 DNS 的 txt type 來辨識它所管理的 records。(這點�
 4. 部署一個範例服務 deployment /service / ingress 並測試可否透過 DNS 訪問到該服務
 5. 驗證 (查看 cloudflare 的 dns record / 查看 external-dns 的 pod logs)
 
-> 創建 cloudflare 對應權限的 API Token
+## 創建 cloudflare 對應權限的 API Token
 ![](/commons/image/20220727/000_externaldns.png)
 
-> 調整 external-dns 參數，這邊是用 helm chart(版本為 1.10.1)，故為調整 values.yaml
+## 調整 external-dns 參數，這邊是用 helm chart(版本為 1.10.1)，故為調整 values.yaml
 
 ```yaml
 # 主要調整一下幾個字段
@@ -94,7 +94,7 @@ extraArgs:
   - --zone-id-filter={自己的 zone id}
 ```
 
-> helm 部署 `helm install -n external-dns --create-namespace -f values.yaml external-dns .`
+## helm 部署 `helm install -n external-dns --create-namespace -f values.yaml external-dns .`
 ![](/commons/image/20220727/001_externaldns.png)
 
 > 部署 sample-app 並驗證 DNS Records
@@ -103,7 +103,7 @@ extraArgs:
 ![](/commons/image/20220727/004_externaldns.png)
 ![](/commons/image/20220727/005_externaldns.png)
 
-> 補充 - 在 ingress 上透過 annotations `external-dns.alpha.kubernetes.io/hostname: sample.example.com` (example.com 要換成自己的 domain) 來宣告 CNAME Record 的 Name。
+## 補充 - 在 ingress 上透過 annotations `external-dns.alpha.kubernetes.io/hostname: sample.example.com` (example.com 要換成自己的 domain) 來宣告 CNAME Record 的 Name。
 {: .prompt-info }
 
 ### 最終我用來測試用的 sample-app.yml

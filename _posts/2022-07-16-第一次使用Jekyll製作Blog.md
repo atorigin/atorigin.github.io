@@ -8,9 +8,10 @@ mermaid: true
 math: true
 ---
 
-這是一篇關於我用 Jekyll 的主題 Chripy 製作的第一篇文章。希望透過這篇文章能夠展示 post 撰寫發布的基本功能。
+> 這是一篇關於我用 Jekyll 的主題 Chripy 製作的第一篇文章。希望透過這篇文章能夠展示 post 撰寫發布的基本功能。
+{: .prompt-info }
 
-## 修改 favicons 的相關圖檔
+# 修改 favicons 的相關圖檔
 1. 先找到要用來做 favicons 的圖片，並利用 [製作 favicons 相關圖檔](https://realfavicongenerator.net/) 這個網站生成所需的相關檔案
     a. 上傳圖檔
     b. 移動到下方點擊 (Generate your Favicons and HTML code)
@@ -21,11 +22,11 @@ math: true
 ### 完成後，可以看見 favicon 已被換成自己設定的圖檔
 ![修改 favicon 完成後圖片](/commons/image/20220718/favicon_change.png)
 
-## 關於 icon 的套件
+# 關於 icon 的套件
 這個 chirpy 主題會引入 submodule [fontawesome-free](https://github.com/cotes2020/chirpy-static-assets/tree/d1d2ec17c88176753d4dd2a1296620021dcc22fd)，路徑會在 assets/lib。
 > 每當 build 的時候，這些 css 和 js 檔就會應用在生成 blog site 的網站做使用
 
-### 感想
+# 感想
 基本上在使用 Jekyll 做為自己的 blog 建置的時候，樣式規則都遵循一套原則，可以參考 Jekyll 套件。
 
 而如果要調整一些設定時，就要遵循 Jekyll 的 Content 配置方式。[Jekyll 文件](https://jekyllrb.com/docs/)
@@ -34,7 +35,7 @@ math: true
 {: .prompt-info }
 自己測試過要增加一個 sidebar 的 custom tab，起初以為在 `_tabs` 增加一個 `title.md` 檔案就可以了，但卻不知道要如何讓他 url 指到對應的目錄。
 
-### 關於 Jekyll compose 工具
+# 關於 Jekyll compose 工具
 用來節省一些寫文件時的準備時間。[jekyll-compose Github 專案](https://github.com/jekyll/jekyll-compose)
 
 可以透過這個工具建立 page / post 等等。
@@ -55,8 +56,8 @@ bundle exec jekyll post '我的POST' --timestamp-format "%Y-%m-%d %H:%M:%S %z"
 ```
 4. 查看 `_posts` 目錄下面會多一個 `.md` 就是剛剛生成的新的 post 文件檔，他會幫忙自動生成上面的 `Front Matter` 字段
 
-## 補充 - 關於文件 md 的 code block 支援的 language 清單
+# 補充 - 關於文件 md 的 code block 支援的 language 清單
 <https://github.com/rouge-ruby/rouge/blob/master/docs/Languages.md>
 
-### 相關 issue 討論
+# 相關 issue 討論
 <https://github.com/cotes2020/jekyll-theme-chirpy/issues/623>
