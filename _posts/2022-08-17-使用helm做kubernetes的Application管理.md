@@ -13,6 +13,9 @@ math: true
 
 # Chart 基本概念
 
+## Helm 安裝 resource 的順序
+<https://helm.sh/docs/intro/using_helm/>
+
 ## Chart 基本結構
 
 ```yaml
@@ -37,7 +40,7 @@ mychart/
 > template 雖然沒有強制性規定命名規則，但 helm 建議還是用 `.yaml` 來作為 YAML 檔案的 suffix，且用 `.tpl` 作為模板協助器檔案的 suffix
 {: .prompt-tip }
 
-## Part1 測試基本渲染 template 的方式
+## 測試基本渲染 template 的方式
 
 ### 先創建 helm chart
 ```bash
@@ -66,7 +69,7 @@ data:
 > 這邊的關鍵在 metadata 下面的 name，後面用了一個 {% raw %} `{{ .Release.Name }}` {% endraw %}。
 {: .prompt-info }
 
-### 關於 `.Release.Name` 的解讀
+### 關於 {% raw %} {{ .Release.Name }} {% endraw %}的解讀
 這邊的定義可以解讀為，從 top namespace 開始找 Release 物件，並從 Release 物件裡找到一個物件叫做 Name 的。
 
 > Release 物件是 helm 物件的一種
@@ -124,3 +127,10 @@ data:
 
 > 測試為 `--set foo=bar` > `-f myvalue.yaml` > `values.yaml`
 {: .prompt-tip }
+
+
+## 談談 templates/_helper.tpl 檔案
+- 最主要是設計來讓所有 template 都可以 re-use 的字段
+- 先 define 一個 block 名稱 -> 在 template 裡面透過 template 關鍵字或 include 關鍵字找到 _helper.tpl 內定義的 block 名稱，引入到該 template 裡面
+
+### 具體實踐
