@@ -1,8 +1,8 @@
 ---
-title: 010_使用 helm 來管理 kubernetes application
+title: 010_使用 helm 來管理 application on kubernetes
 date: '2022-08-17 16:09:00 +0800'
-categories: [Course]
-tags: [java]     # TAG names should always be lowercase
+categories: [DevOps]
+tags: [helm,kubernetes]     # TAG names should always be lowercase
 author: owen
 mermaid: true
 math: true
@@ -129,8 +129,94 @@ data:
 {: .prompt-tip }
 
 
-## 談談 templates/_helper.tpl 檔案
+# 延續基礎，在 template 中如何把內容再進一步做轉換變成我們想要用的內容
+
+## 假想一種情況
+前面我們透過 {% raw %} {{ .Release.Name }} {% endraw %} 的方式把 template 字元轉換成我們要的內容，但這種方式為固定一組對應的轉換，但隨著內容越來越複雜，我們會遇到要將內容轉換的同時，對這些內容作"再處理"。以下將使用 .Values 物件展示部分 Case。
+
+## 在 inject 到 template 時，用 quote ("") 將內容包住
+
+{% raw %}
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ quote .Values.favorite.drink }}
+  food: {{ quote .Values.favorite.food }}
+```
+{% endraw %}
+
+> 其實 helm template language 跟 go template language 類似
+{: .prompt-tip }
+
+## default function
+是非常常使用的 function，該 function 可以指定一個預設的 value 在 template 裡面。例如：
+
+### 
+
+{% raw %}
+```yaml
+drink: {{ .Values.favorite.drink | default "tea" | quote }}
+```
+{% endraw %}
+
+# 談談 templates/_helper.tpl 檔案
 - 最主要是設計來讓所有 template 都可以 re-use 的字段
 - 先 define 一個 block 名稱 -> 在 template 裡面透過 template 關鍵字或 include 關鍵字找到 _helper.tpl 內定義的 block 名稱，引入到該 template 裡面
 
-### 具體實踐
+## 具體實踐
+1. 先建置一個 _helper.tpl 檔案，並定義 fullname 區塊
+2. 新增一個 configmaps template 並定義 include 關鍵字，使其能引用 _helper.tpl 的值
+
+### _helper.tpl
+{% raw %}
+```
+{{/*
+Create a default fully qualified app name.
+We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
+If release name contains chart name it will be used as a full name.
+*/}}
+{{- define "fullname" -}}
+{{- if .Values.fullnameOverride }}
+{{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- $name := default .Chart.Name .Values.nameOverride }}
+{{- if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
+{{- end }}
+{{- end }}
+{{- end }}
+```
+{% endraw %}
+
+### configmaps.yaml
+{% raw %}
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fair-worm-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ .Values.favorite.drink | default (printf "%s-tea" (include "fullname" .)) }}
+  food: "PIZZA"
+```
+{% endraw %}
+
+### 執行 helm 指令查看生成的 object 樣子
+
+```bash
+helm template demo .
+```
+
+![](/commons/image/20220818/000_helm.png)
+
+> demo 可以隨意，這個參數所代表的意義是 chart name
+{: .prompt-info }
+
+# 常用 function 整理
