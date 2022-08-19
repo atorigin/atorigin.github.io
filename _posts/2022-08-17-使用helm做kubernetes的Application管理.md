@@ -11,6 +11,15 @@ math: true
 # 目標
 隨著專案越來越多，管理 kubernetes 內部 deployment、service、ingress、configmaps 物件越來越多。對於多檔切換來切換去的管理也越來越不堪負荷，也害怕自己哪裡改壞了，沒正確上到對應的配置導致部署有問題沒發現。最近開始想要導入 helm 來做在 kubernetes 內的 application 做管理。
 
+# 測試開發 Chart 心得總結
+- 跟 golang template 有很大的關係，裡面語法大都類似
+- 當要利用模板渲染時，要注意 scope，比較要注意的是 `with` 關鍵字。
+- 條件控制 if-else 和 range 比較常用，range 雷同 foreach 的功能
+- 要注意 template render 後的空格，適時的使用 {% raw %} `{{-` 和 `-}}` 絕大部分情況會用 `{{-` {% endraw %}
+- 模板定義會用 `define` 包起來，並且 helm 建議所有定義都放在 `_helpers.tpl` 檔案裡
+- 使用 `include` 或 `template` 引入模板，兩者差異在於 `include` 是 function，他可以透過 `|` 再次做數據處理，而 `template` 僅是執行複製貼上的動作，所以無法將輸出傳入給另一個 function 做輸入，因此 helm 建議用 `include` 可以更好的處理縮進問題
+
+
 # Chart 基本概念
 
 ## Helm 安裝 resource 的順序
@@ -155,8 +164,6 @@ data:
 ## default function
 是非常常使用的 function，該 function 可以指定一個預設的 value 在 template 裡面。例如：
 
-### 
-
 {% raw %}
 ```yaml
 drink: {{ .Values.favorite.drink | default "tea" | quote }}
@@ -220,3 +227,102 @@ helm template demo .
 {: .prompt-info }
 
 # 常用 function 整理
+
+## Date 相關的
+- now 取得當前的時間，常用來搭配其他時間 function
+- date 格式化時間
+
+> Golang 的 time 套件在 format 時間字串時有自己定義的做法。他不像其他語言用 %D 或 %Y 之類的代碼，而是直接用一個自訂標準時間，它的規律就像計數 12345 那樣。
+{: .prompt-warning }
+
+### 例如宣告以下的 function，我們會得到 UTC+8 的標準 24 小時制當前時間
+{% raw %}
+```yaml
+{{ now | date "2006-01-02 15:04:05 +0800" }}
+```
+{% endraw %}
+
+
+## String 相關的
+- contains，用來測試字串內有無包含特定的字，返回 true 或 false
+  - 範例 `contains "cat" "catch"`，返回 `true`
+- quote 和 squote，把 String 用雙引號(quote)或單引號(squote)包起來
+  - 範例 `"hello" | quote` ，返回 `"hello"`
+- indent，會把字串用空格縮排，nindent 跟 indent 一樣，但會在一開始先空一行
+  - 範例 `indent 4 "hello"` 返回 `"    hello"`
+- replace，取代字串
+  - 範例 `"I have a pen" | replace " " "-"` 返回 `"I-have-a-pen"`
+
+## 其他參考
+<https://helm.sh/docs/chart_template_guide/function_list/>
+
+
+# flow control 重點摘要
+
+## 甚麼情況會判斷為 false
+1. 直接給定 boolean 為 false 時
+2. 當數字型別為 0 時
+3. 空字串 `""` 時
+4. 出現 `nil` 關鍵字時
+5. 出現空的 collection 時(無論是 map / slice / tuple / dict / array)
+
+## 排版問題
+在 template engine 渲染過程，會把 {% raw %} `{{ 中間內容 }}` {% endraw %} 大括號對的內容刪除並且保留其空白，而最後渲染出來就會變成多了空格，文件舉例
+
+### 當我們給定一個這樣的 configmaps.yaml
+{% raw %}
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{ if eq .Values.favorite.drink "coffee" }}
+  mug: "true"
+  {{ end }}
+```
+{% endraw %}
+
+### 渲染結果會變成
+{% raw %}
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: telling-chimp-configmap
+data:
+  myvalue: "Hello World"
+  drink: "coffee"
+  food: "PIZZA"
+
+  mug: "true"
+```
+{% endraw %}
+
+> 可以看到 food 和 mug 之間多了一行空白
+{: .prompt-tip }
+
+### 這時候 helm 提供的作法是去除空白，在大括號後加上 `-` 符號來告訴 template engine 把空格處理掉，這邊要注意的是，在 helm 裡面，渲染後的換行就等同於空格，因此我們可以改成
+{% raw %}
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  myvalue: "Hello World"
+  drink: {{ .Values.favorite.drink | default "tea" | quote }}
+  food: {{ .Values.favorite.food | upper | quote }}
+  {{- if eq .Values.favorite.drink "coffee" }}
+  mug: "true"
+  {{- end }}
+```
+{% endraw %}
+
+{% raw %}
+> 注意，{{- 代表是清除左邊的空格，而 -}} 代表是去除右邊的
+{: .prompt-warning }
+{% endraw %}
