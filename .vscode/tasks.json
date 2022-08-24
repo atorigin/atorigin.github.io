@@ -3,7 +3,7 @@
     "tasks": [
       {
         "label": "jekyll",
-        "command": "bundle exec jekyll serve --livereload",
+        "command": "bundle exec jekyll serve --livereload --force_polling",
         "type": "shell"
       }
     ]
