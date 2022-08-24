@@ -34,3 +34,12 @@ Springboot 的一個強大特性是它可以自動化配置，而該關鍵要素
 
 > 從 pom 可以看見 springboot 在 <b>`約定優於設定`</b> 的部分細節，因為在我們初始化整個專案的過程，它默默的依賴了相關的套件，默默定義的相關的設定並且記錄在 pom 檔內
 {: .prompt-info }
+
+# Java 階段學習
+1. https://www.bilibili.com/video/BV12J41137hu?
+2. https://www.bilibili.com/video/BV1V4411p7EF?
+3. https://www.bilibili.com/video/BV12J411M7Sj?
+4. https://www.bilibili.com/video/BV1NE411Q7Nx?
+5. https://www.bilibili.com/video/BV1WE411d7Dv?
+6. https://www.bilibili.com/video/BV1aE41167Tu?
+7. https://www.bilibili.com/video/BV1PE411i7CV?
