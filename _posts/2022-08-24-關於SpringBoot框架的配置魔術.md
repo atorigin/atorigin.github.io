@@ -36,10 +36,23 @@ Springboot 的一個強大特性是它可以自動化配置，而該關鍵要素
 {: .prompt-info }
 
 # Java 階段學習
-1. https://www.bilibili.com/video/BV12J41137hu?
-2. https://www.bilibili.com/video/BV1V4411p7EF?
-3. https://www.bilibili.com/video/BV12J411M7Sj?
-4. https://www.bilibili.com/video/BV1NE411Q7Nx?
-5. https://www.bilibili.com/video/BV1WE411d7Dv?
-6. https://www.bilibili.com/video/BV1aE41167Tu?
-7. https://www.bilibili.com/video/BV1PE411i7CV?
+1. <https://www.bilibili.com/video/BV12J41137hu?>
+2. <https://www.bilibili.com/video/BV1V4411p7EF?>
+3. <https://www.bilibili.com/video/BV1LJ411z7vY?>
+4. <https://www.bilibili.com/video/BV12J411M7Sj?>
+5. <https://www.bilibili.com/video/BV1NE411Q7Nx?>
+6. <https://www.bilibili.com/video/BV1WE411d7Dv?>
+7. <https://www.bilibili.com/video/BV1aE41167Tu?>
+8. <https://www.bilibili.com/video/BV1PE411i7CV?>
+9. <https://www.bilibili.com/video/BV1jJ411S7xr?>
+
+> Java SE -> Java 多線程 -> Java 網路程式設計 -> Java EE Web -> Spring -> SpringMVC -> SpringBoot -> SpringCloud
+{: .prompt-tip }
+
+## 課程 Note 參考
+- <https://mp.weixin.qq.com/mp/homepage?__biz=Mzg2NTAzMTExNg==&hid=1&sn=3247dca1433a891523d9e4176c90c499>
+
+
+# 自我學習紀錄
+
+## Java EE Web
