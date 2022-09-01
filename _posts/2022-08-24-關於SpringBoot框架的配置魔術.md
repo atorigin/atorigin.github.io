@@ -1,7 +1,7 @@
 ---
 title: 011_關於 SpringBoot 框架的配置魔術
 date: '2022-08-17 16:09:00 +0800'
-categories: [Course]
+categories: [Backend]
 tags: [java,springboot]     # TAG names should always be lowercase
 author: owen
 mermaid: true
