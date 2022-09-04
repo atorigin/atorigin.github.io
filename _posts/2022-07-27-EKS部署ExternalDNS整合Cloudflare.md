@@ -11,7 +11,7 @@ math: true
 # 起源
 在部署、上線一個新專案時，通常我們會先寫好該專案的一些 yaml 配置檔，包含 deployment / service / ingress / configmap 等等。將服務的一系列會用的的資源定義好，最後 apply 到 cluster 裡面。
 
-而最後一步，我們通常需要依據定義的 ingress 裡面的 host 來將 DNS Record 建立在 DNS Provider 上，有可能是在 Cloudflare / AWS Route53 / Godaddy 之類的，而每次一個新專案要上線都比需要這麼做。這個設定的工作就好像一個固定形式的 SOP，久而久之就開始感到無趣。
+而最後一步，我們通常需要依據定義的 ingress 裡面的 host 來將 DNS Record 建立在 DNS Provider 上，有可能是在 Cloudflare / AWS Route53 / Godaddy 之類的，而每次一個新專案要上線都必需要這麼做。這個設定的工作就好像一個固定形式的 SOP，久而久之就開始感到無趣。
 
 身為一個 devops 工程師，這種 SOP 的工作當然能希望自動(智慧)一點，因此就開始調研怎麼樣能夠達成，也就有了此篇關於 External DNS 的文件紀錄。
 
