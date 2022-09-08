@@ -51,8 +51,3 @@ Springboot 的一個強大特性是它可以自動化配置，而該關鍵要素
 
 ## 課程 Note 參考
 - <https://mp.weixin.qq.com/mp/homepage?__biz=Mzg2NTAzMTExNg==&hid=1&sn=3247dca1433a891523d9e4176c90c499>
-
-
-# 自我學習紀錄
-
-## Java EE Web
