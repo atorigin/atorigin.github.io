@@ -29,5 +29,5 @@ math: true
 # 安裝
 > 主要分兩塊，一個是如何跟 Github 驗證，一個是如何讓 Kubernetes 能跟 Github Action 交互
 {: .prompt-tip }
-- (authenticating)[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api]
-- (action runner controller installation)[https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller]
+1. [authenticating](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api)
+2. [action runner controller installation](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller)
