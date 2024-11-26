@@ -12,7 +12,7 @@ math: true
 因為公司 Github Org 的 CICD 日益漸增，加上目前組內討論想要把 CI/CD 的配置都統一管理到 Github Action，因此開始調研如何實作 ARC 有效利用測試區的 EKS 效能
 
 # ARC 架構
-![](/commons/image/20241126/000_arc.webp)
+![](/commons/image/20241126/arc-diagram.webp)
 
 ## 架構描述
 1. 安裝完畢後，AutoScalingRunnerSet Controller 呼叫 githun API 取得這個 runner scale set 屬於哪一個 runner group ID
@@ -31,3 +31,18 @@ math: true
 {: .prompt-tip }
 1. [authenticating](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/authenticating-to-the-github-api)
 2. [action runner controller installation](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners-with-actions-runner-controller/deploying-runner-scale-sets-with-actions-runner-controller)
+
+## Authenticating
+1. 進入組織設定頁面，進入 developer settings -> Github App
+![](/commons/image/20241126/000.png)
+![](/commons/image/20241126/001.png)
+![](/commons/image/20241126/002.png)
+
+2. New 一個 Github App，這邊要取得一些驗證用的關鍵資訊
+    a. AppID
+    b. Private Key .pem 格式
+    c. installation id
+![](/commons/image/20241126/003.png)
+
+3. 在 helm chart 裡面指定一個 kubernetes secret
+![](/commons/image/20241126/004.png)
