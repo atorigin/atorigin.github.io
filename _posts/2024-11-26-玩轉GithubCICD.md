@@ -47,8 +47,19 @@ math: true
 3. 在 helm chart 裡面指定一個 kubernetes secret
 ![](/commons/image/20241126/004.png)
 
-> create secret file for auth between runner and github
+4. helm install
+```bash
+helm install --create-namespace -n arc-runners -f values.yaml <runner-label> ./
+```
+
+5. apply secret to arc-runners namespace
+```bash
+kubectl apply -f pre-defined-secret.yaml
+```
+
+> 創建 secret 用於 runner 和 github 之間驗證
 {: .prompt-tip }
+
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -62,12 +73,3 @@ data:
   github_app_private_key: <base64endcoded-pem>
 ```
 
-4. helm install
-```bash
-helm install --create-namespace -n arc-runners -f values.yaml <runner-label> ./
-```
-
-5. apply secret to arc-runners namespace
-```bash
-kubectl apply -f pre-defined-secret.yaml
-```
