@@ -47,12 +47,22 @@ math: true
 3. 在 helm chart 裡面指定一個 kubernetes secret
 ![](/commons/image/20241126/004.png)
 
-4. helm install
+4. 定義 chart values YAML
+
+```yaml
+runnerScaleSetName: "vivotek-arc" # important , must to match workflow 'runs-on'
+githubConfigUrl: <your-repository-url>
+githubConfigSecret: pre-defined-secret
+minRunners: 0
+maxRunners: 5
+```
+
+5. helm install
 ```bash
 helm install --create-namespace -n arc-runners -f values.yaml <runner-label> ./
 ```
 
-5. apply secret to arc-runners namespace
+6. apply secret to arc-runners namespace
 ```bash
 kubectl apply -f pre-defined-secret.yaml
 ```
@@ -72,4 +82,3 @@ data:
   github_app_installation_id: <base64encoded-installation-id>
   github_app_private_key: <base64endcoded-pem>
 ```
-
