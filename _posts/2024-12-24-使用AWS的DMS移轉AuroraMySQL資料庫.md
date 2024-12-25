@@ -25,6 +25,17 @@ math: true
 ![](/commons/image/20241224/dms00.png)
 
 ## 執行 Migration Task 時 DMS 會做的
+- 在傳統 Solution 裡面，遷移 DB 需要分析 hardware 和 software，針對其安裝及管理。但使用 AWS DMS 會自動做完這些評估，並進行遷移。
+- DMS 可以動態調整遷移的用量來符合實際的 workload，例如要增加額外的 disk space，只需要暫停遷移，調整後重新啟動遷移即可
+- DMS 是 pay-as-you-go，按量計費
+- DMS 自動管理所有執行 migration server 的 infra，包含 hardware/software/software patching 和 error reporting
+- DMS 會自動 failover，如果主要的 replication server 發生任何原因而造成 failure，backup 的 replication server 會接手，只可能會造成一點或甚至 0 中斷。
+- DMS Fleet Advisor 自動管理 inventory 中的 data infra，它會生成 report 來協助評估遷移的計畫
+- DMS Schema Conversion 自動評估複雜的 source data provider，它也能轉換 database schema 和 code object 並格式化成 compatible 的 target database 可 applied 的內容
+- DMS 也可以協助更換最新的 DB Engine，有可能會比現在使用的更加 cost-effective
+- DMS 支援現在最熱門的所有 DB Engine 作為 source，和廣泛的 target
+- DMS 支援 heterogeneous 的 data migration (相異的 db engine 轉換)
+- DMS 可以確保安全性，對於 data 可以用 KMS 加密，對於傳輸，DMS 提供 SSL 來加密。
 
 ## 關於此次移轉的 Source And Target
 - https://docs.aws.amazon.com/zh_tw/dms/latest/userguide/CHAP_Source.MySQL.html#CHAP_Source.MySQL.AmazonManaged
