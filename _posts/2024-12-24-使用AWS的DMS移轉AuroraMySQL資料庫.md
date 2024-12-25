@@ -41,3 +41,13 @@ math: true
 - https://docs.aws.amazon.com/zh_tw/dms/latest/userguide/CHAP_Source.MySQL.html#CHAP_Source.MySQL.AmazonManaged
 - https://docs.aws.amazon.com/zh_tw/dms/latest/userguide/CHAP_Target.MySQL.html
 
+## Source Data Provider (Database) - AWS RDS Aurora MySQL-8
+
+### Prerequisites for CDC
+- Automatic Backup Enabled on Instance Level
+- Parameter Group `binlog_format` Set to `ROW`
+- Ensure binlog remain time for DMS available
+    - `call mysql.rds_set_configuration('binlog retention hours', 24);`
+- `binlog_row_image` Set to `Full`
+- `binlog_checksum` Set to `None`
+- If Read Replica Source，`log_slave_updates` Set to `TRUE`
