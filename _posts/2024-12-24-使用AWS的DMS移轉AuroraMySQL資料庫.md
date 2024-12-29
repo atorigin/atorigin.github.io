@@ -38,8 +38,9 @@ math: true
 - DMS 可以確保安全性，對於 data 可以用 KMS 加密，對於傳輸，DMS 提供 SSL 來加密。
 
 ## 關於此次移轉的 Source And Target
-- https://docs.aws.amazon.com/zh_tw/dms/latest/userguide/CHAP_Source.MySQL.html#CHAP_Source.MySQL.AmazonManaged
-- https://docs.aws.amazon.com/zh_tw/dms/latest/userguide/CHAP_Target.MySQL.html
+- [MySQL Source](https://docs.aws.amazon.com/zh_tw/dms/latest/userguide/CHAP_Source.MySQL.html#CHAP_Source.MySQL.AmazonManaged)
+- [MySQL Target](https://docs.aws.amazon.com/zh_tw/dms/latest/userguide/CHAP_Target.MySQL.html)
+- [Homogeneous Migration Networking](https://aws.amazon.com/tw/blogs/database/migrate-an-on-premises-mysql-database-to-amazon-aurora-mysql-over-a-private-network-using-aws-dms-homogeneous-data-migration-and-network-load-balancer/)
 
 ## Source Data Provider (Database) - AWS RDS Aurora MySQL-8
 
