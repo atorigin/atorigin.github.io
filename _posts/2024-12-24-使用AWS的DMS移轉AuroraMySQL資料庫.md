@@ -42,13 +42,29 @@ math: true
 - [MySQL Target](https://docs.aws.amazon.com/zh_tw/dms/latest/userguide/CHAP_Target.MySQL.html)
 - [Homogeneous Migration Networking](https://aws.amazon.com/tw/blogs/database/migrate-an-on-premises-mysql-database-to-amazon-aurora-mysql-over-a-private-network-using-aws-dms-homogeneous-data-migration-and-network-load-balancer/)
 
-## Source Data Provider (Database) - AWS RDS Aurora MySQL-8
+## Source Endpoint (Database) - AWS RDS Aurora MySQL-8
 
-### Prerequisites for CDC
-- Automatic Backup Enabled on Instance Level
-- Parameter Group `binlog_format` Set to `ROW`
-- Ensure binlog remain time for DMS available
+### Source AWS RDS Aurora MySQL
+- 調整 Maintenance & Backup (AWS Console)
+    - Enable 自動備份
+- 調整 ParameterGroup (AWS Console)
+    - binlog_format = `ROW`
+    - binlog_row_image = `Full`
+    - binlog_checksum = `None`
+    - log_slave_updates = `TRUE`
+    - wait_timeout = `1200`
+    - net_read_timeout = `1200`
+    - net_write_timeout = `1200`
+- SQL 語句調整設定(MySQL Client Into DB)
     - `call mysql.rds_set_configuration('binlog retention hours', 24);`
-- `binlog_row_image` Set to `Full`
-- `binlog_checksum` Set to `None`
-- If Read Replica Source，`log_slave_updates` Set to `TRUE`
+
+
+## Target Endpoint - AWS RDS Aurora MySQL-8
+
+### Target AWS RDS Aurora MySQL
+- 調整 Maintenance & Backup (AWS Console)
+    - Enable 自動備份
+- 調整 ParameterGroup
+    - wait_timeout = `1200`
+    - net_read_timeout = `1200`
+    - net_write_timeout = `1200`
